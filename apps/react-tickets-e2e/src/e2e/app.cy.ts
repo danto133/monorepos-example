@@ -1,13 +1,17 @@
-import { getGreeting } from '../support/app.po';
+import { getTickets, getAddTicketButton } from '../support/app.po';
 
 describe('react-tickets', () => {
   beforeEach(() => cy.visit('/'));
 
-  it('should display welcome message', () => {
-    // Custom command example, see `../support/commands.ts` file
-    cy.login('my-email@something.com', 'myPassword');
+  it('should display ticket', () => {
+    getTickets().should(e => {
+      expect(e.length).equal(2);
+    });
 
-    // Function helper example, see `../support/app.po.ts` file
-    getGreeting().contains('Welcome react-tickets');
+    getAddTicketButton().click();
+
+    getTickets().should(e => {
+      expect(e.length).equal(3);
+    })
   });
 });
